@@ -1,0 +1,23 @@
+This patch is for the edison-src-ww25.5-15.tgz version of the edison 
+software.  You must download that from the Intel website.  Then simply
+untar it and apply the patch ex:
+
+tar xf edison-src-ww25.5-15.tgz -C "${BUILDDIR}"
+cd "${BUILDDIR}"
+patch -p0 -N -r /tmp/rejects  < /path/to/src_build.patch
+
+At this point you will have everything setup and you can build just like
+normal, see instructions from Intel documentation but the following 
+should work:
+
+make setup
+make image
+
+To be able to update the backup battery charge current and read it
+there is a file  /sys/devices/platform/pmic_ccsm/backup_battery_charge
+
+#set charge to 3.0V 500 uA
+echo 27 > /sys/devices/platform/pmic_ccsm/backup_battery_charge
+
+See the Edison Compute Module Hardware Guide for more instructions
+on proper register settings.
